@@ -1,3 +1,5 @@
 .idea/
 api_key.ini
 settings.ini
+/src/runserver.sh
+__pycache__
