@@ -17,6 +17,21 @@
         </div>
     </div>
 
-    <script type="application/javascript" src="{% static 'currency-chart.js' %}"></script>
+    <script>
+        var ctx = document.getElementById("chart");
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ days_labels|safe }},
+                datasets: [{
+                    label: 'USD',
+                    data: {{ data|safe }},
+                    fill: false,
+                    borderColor: 'rgb(255, 128, 128)'
+                }]
+            }
+
+        })
+    </script>
 </body>
 </html>

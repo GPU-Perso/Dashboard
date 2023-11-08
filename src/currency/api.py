@@ -1,4 +1,5 @@
 import configparser
+import pathlib
 from datetime import date, timedelta
 from pprint import pprint
 from time import strftime
@@ -7,7 +8,11 @@ import requests
 
 # API key management
 config = configparser.ConfigParser()
-config.read("settings.ini")
+file = pathlib.Path(__file__).parent/"settings.ini"
+print(file)
+print("/home/tomtom/formation-python/Projets/Dashboard/src/currency/settings.ini")
+config.read(file)
+config.read("/home/tomtom/formation-python/Projets/Dashboard/src/currency/settings.ini")
 ACCESS_KEY = config.get("exchangeratesapi", "ACCESS_KEY")
 BASE_URL = "http://api.exchangeratesapi.io/v1"
 
@@ -18,7 +23,9 @@ def get_rates(currencies, days=2):
     api_rates = {}
     d = start_date
     while d <= end_date:
-        rsp = requests.get(f"{BASE_URL}/{d}?access_key={ACCESS_KEY}&symbols={','.join(currencies)}&format=1")
+        url = f"{BASE_URL}/{d}?access_key={ACCESS_KEY}&symbols={','.join(currencies)}&format=1"
+        print(url)
+        rsp = requests.get(url)
         if not rsp and not rsp.json():
             return False, False
         api_rates[d.strftime("%Y-%m-%d")] = rsp.json().get("rates")
