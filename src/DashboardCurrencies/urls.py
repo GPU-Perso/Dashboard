@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from currency.views import dashboard
+from currency.views import dashboard, redirect_index
 
 urlpatterns = [
-    path('days=<int:days_range>&currencies=<str:currencies>', dashboard),
+    path('days=<int:days_range>&currencies=<str:currencies>', dashboard, name="home"),
+    path('', redirect_index),
     path('admin/', admin.site.urls),
 ]
